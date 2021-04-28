@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Header from './components/Header';
+import 'antd/dist/antd.css';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+import CollegeList from './components/CollegeList';
+import CollegeInfo from './components/CollegeInfo';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Router>
+        <Header />
+
+        <Switch>
+          <Route path='/dashboard' component={Dashboard} />
+          <Route path='/college-list/:type/:key/' component={CollegeList} />
+          <Route path='/college-info/:id' component={CollegeInfo} />
+
+          <Redirect to='/dashboard' />
+        </Switch>
+      </Router>
     </div>
   );
 }

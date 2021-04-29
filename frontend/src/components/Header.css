@@ -13,8 +13,13 @@
   background-color: black;
 }
 
+.header__left {
+  display: flex;
+}
+
 .header__contents {
   display: flex;
+  justify-content: space-between;
   text-align: center;
   color: aliceblue;
 }

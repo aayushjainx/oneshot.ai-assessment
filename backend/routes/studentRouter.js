@@ -11,7 +11,7 @@ studentRouter.get('/id/:sid', async (req, res) => {
     } else {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
-      res.json(foundStudent);
+      res.json(student);
     }
   });
 });

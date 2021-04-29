@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
 import axios from '../utils/axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Table, Tag, Space } from 'antd';
+import { Table } from 'antd';
 import { Row, Col } from 'antd';
 import { Typography } from 'antd';
-const { Title } = Typography;
+const { Text } = Typography;
 
 function CollegeList() {
   const [tableData, setTableData] = useState([]);
@@ -23,10 +25,6 @@ function CollegeList() {
       if (type === 'course') {
         url = `/college/course/${key}`;
         Type = `Colleges Having ${key} Course`;
-      }
-      if (type === 'similarcolleges') {
-        url = `/college/similarColleges/${key}`;
-        Type = `Similar Colleges`;
       }
       const res = await axios.get(url);
       console.log(res.data, 'data');
@@ -64,7 +62,7 @@ function CollegeList() {
     {
       title: '',
       key: 'action',
-      render: (text, record) => <Link to={`/college-details/${record._id}`}>View Details</Link>,
+      render: (text, record) => <Link to={`/college-info/${record._id}`}>View Details</Link>,
     },
   ];
 
@@ -72,7 +70,9 @@ function CollegeList() {
     <div style={{ margin: 30, marginTop: 80 }}>
       <Row>
         <Col xs={{ span: 24 }} style={{ textAlign: 'center', marginBottom: 30 }}>
-          <Title level={3}>{types}</Title>
+          <Text keyboard style={{ fontSize: 30 }}>
+            {types}
+          </Text>
         </Col>
 
         {tableData ? (

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Dashboard from './components/Dashboard';
 import CollegeList from './components/CollegeList';
 import CollegeInfo from './components/CollegeInfo';
+import StudentInfo from './components/StudentInfo';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/college-list/:type/:key/' component={CollegeList} />
           <Route path='/college-info/:id' component={CollegeInfo} />
-
+          <Route path='/student-info/:id' component={StudentInfo} />
           <Redirect to='/dashboard' />
         </Switch>
       </Router>

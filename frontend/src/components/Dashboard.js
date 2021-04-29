@@ -1,17 +1,20 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import { Button, Typography } from 'antd';
 import GroupByState from './GroupByState';
 import GroupByCourse from './GroupByCourse';
 import axios from '../utils/axios';
+import AllColleges from './AllColleges';
 const { Title } = Typography;
 
 function Dashboard() {
-  const [state, setState] = useState(true);
+  const [state, setState] = useState(1);
   const [stateData, setStateData] = useState([]);
   const [stateTable, setStateTable] = useState([]);
   const [courseData, setCourseData] = useState([]);
   const [courseTable, setCourseTable] = useState([]);
+  const [allColleges, setAllColleges] = useState([]);
 
   useEffect(() => {
     const getStateData = async () => {
@@ -63,6 +66,19 @@ function Dashboard() {
     getCourseData();
   }, []);
 
+  useEffect(() => {
+    const getAllData = async () => {
+      const res = await axios.get('college/all');
+      console.log(res.data, 'allcollege');
+      var data = res.data;
+      data.map((d, i) => {
+        d.key = i + 1;
+      });
+      setAllColleges(data);
+    };
+    getAllData();
+  }, []);
+
   return (
     <>
       <div style={{ height: 200, background: 'black' }}>
@@ -70,18 +86,23 @@ function Dashboard() {
           <Title level={1} style={{ color: 'white' }}>
             Dashboard
           </Title>
-          <Button className='dashboard__button' onClick={() => setState(true)}>
+          <Button className='dashboard__button' onClick={() => setState(1)}>
             Group By States
           </Button>
-          <Button className='dashboard__button' onClick={() => setState(false)}>
+          <Button className='dashboard__button' onClick={() => setState(2)}>
             Group By Courses
+          </Button>
+          <Button className='dashboard__button' onClick={() => setState(3)}>
+            View All Colleges
           </Button>
         </div>
       </div>
-      {state ? (
+      {state === 1 ? (
         <GroupByState data={stateData} table={stateTable} />
-      ) : (
+      ) : state === 2 ? (
         <GroupByCourse data={courseData} table={courseTable} />
+      ) : (
+        <AllColleges table={allColleges} />
       )}
     </>
   );
